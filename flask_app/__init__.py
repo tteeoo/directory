@@ -83,7 +83,7 @@ if not DEBUG:
         code = 500
         if isinstance(e, HTTPException):
             code = e.code
-        return render_template("error.html", errno="HTTP Error: "+str(code))
+        return render_template("error.html", errno=str(code))
 
 if __name__ == "__main__":
     app.run(debug=DEBUG, host="0.0.0.0")

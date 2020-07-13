@@ -1,0 +1,27 @@
+{% extends 'parent.html' %}
+
+{% block head %}
+<title>directory</title>
+{% endblock %}
+
+{% block body %}
+
+<div id="wrapper">
+	<h1>/</h1>
+	{% for item in items %}
+		{% if item.directory %}
+			<a class="directory" href="{{ item.url }}">
+				{{ item.name }}
+			</a>
+			<br>
+		{% else %}
+			<a class="file" href="{{ item.url }}">
+				{{ item.name }}
+			</a>
+			<span class="size">{{ item.size }}</span>
+			<br>
+		{% endif %}
+	{% endfor %}
+</div>
+
+{% endblock %}

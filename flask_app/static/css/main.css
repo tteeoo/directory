@@ -1,0 +1,26 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	color: #000;
+	background-color: #000;
+	font-family: "Consolas", monospace;
+}
+
+#wrapper {
+	width: 40%;
+	height: 100%;
+	margin: auto;
+	margin-top: 24px;
+	padding: 48px;
+	background-color: #fff;
+}
+
+.directory, .file {
+	display: inline-block;
+	margin: 5px 0;
+	color: #0000ff;
+}
+
+.size {
+	float: right;
+}

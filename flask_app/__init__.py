@@ -8,7 +8,7 @@ from flask_limiter import Limiter
 from werkzeug.exceptions import HTTPException
 from flask_limiter.util import get_remote_address
 from werkzeug.middleware.proxy_fix import ProxyFix
-from flask import Flask, render_template, url_for, request, send_from_directory, abort
+from flask import Flask, render_template, url_for, request, send_from_directory, abort, redirect
 
 DEBUG = False
 DIRECTORY = "/home/theo/dev/repos/directory"
@@ -27,9 +27,12 @@ class Item:
         else:
             self.size = humanize.naturalsize(size_num, gnu=True)
 
-@app.route("/")
 @app.route("/directory")
 @app.route("/directory/")
+def redir():
+    return redirect(url_for("index"))
+
+@app.route("/")
 @limiter.limit("5/second")
 def index():
 

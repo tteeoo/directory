@@ -11,7 +11,11 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import Flask, render_template, url_for, request, send_from_directory, abort, redirect
 
 DEBUG = False
-DIRECTORY = "/home/theo/dev/repos/directory"
+DIRECTORY = "/"
+try:
+    DIRECTORY = os.environ["DIRECTORY_DIRECTORY"]
+except KeyError:
+    pass
 
 app = Flask(__name__, static_folder="static")
 app.wsgi_app = ProxyFix(app.wsgi_app)

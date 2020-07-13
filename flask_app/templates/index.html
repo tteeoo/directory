@@ -7,21 +7,25 @@
 {% block body %}
 
 <div id="wrapper">
-	<h1>/</h1>
-	{% for item in items %}
-		{% if item.directory %}
-			<a class="directory" href="{{ item.url }}">
-				{{ item.name }}
-			</a>
-			<br>
-		{% else %}
-			<a class="file" href="{{ item.url }}">
-				{{ item.name }}
-			</a>
-			<span class="size">{{ item.size }}</span>
-			<br>
-		{% endif %}
-	{% endfor %}
+	<div id="wrapper-padding">
+		<h1>/</h1>
+		{% for item in items %}
+			{% if item.directory %}
+				<div>
+					<a class="directory" href="{{ item.url }}">
+						{{ item.name }}
+					</a>
+				</div>
+			{% else %}
+				<div>
+					<a class="file" href="{{ item.url }}">
+						{{ item.name }}
+					</a>
+					<span class="size">{{ item.size }}</span>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
 </div>
 
 {% endblock %}

@@ -1,3 +1,7 @@
+* {
+	word-break: break-all;
+}
+
 html, body {
 	margin: 0;
 	padding: 0;
@@ -7,12 +11,15 @@ html, body {
 }
 
 #wrapper {
-	width: 40%;
+	width: 50%;
 	height: 100%;
-	margin: auto;
-	margin-top: 24px;
-	padding: 48px;
+	min-width: 600px;
+	margin: 24px auto;
 	background-color: #fff;
+}
+
+#wrapper-padding {
+	padding: 48px;
 }
 
 .directory, .file {
@@ -21,6 +28,13 @@ html, body {
 	color: #0000ff;
 }
 
-.size {
-	float: right;
+@media only screen and (max-width: 616px) {
+	#wrapper {
+		margin: 0;
+		width: 100%;
+		min-width: 0;
+	}
+	body, html {
+		background-color: #fff;
+	}
 }

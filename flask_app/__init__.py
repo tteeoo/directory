@@ -11,7 +11,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import Flask, render_template, url_for, request, send_from_directory, abort
 
 DEBUG = False
-DIRECTORY = "/home/theo"
+DIRECTORY = "/home/theo/dev/repos/directory"
 
 app = Flask(__name__, static_folder="static")
 app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -32,7 +32,7 @@ class Item:
 @app.route("/directory/")
 def index():
 
-    files = os.listdir(DIRECTORY)
+    files = sorted(os.listdir(DIRECTORY))
     items = []
     for f in files:
         if f[0] == ".":
@@ -49,7 +49,7 @@ def directory(path):
     if ".." in path:
         abort(400)
 
-    files = os.listdir(DIRECTORY + "/" + path)
+    files = sorted(os.listdir(DIRECTORY + "/" + path))
     items = []
     for f in files:
         if f[0] == ".":
@@ -80,4 +80,4 @@ if not DEBUG:
         return render_template("error.html", errno="HTTP Error: "+str(code))
 
 if __name__ == "__main__":
-    app.run(debug=DEBUG)
+    app.run(debug=DEBUG, host="0.0.0.0")

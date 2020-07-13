@@ -30,6 +30,7 @@ class Item:
 @app.route("/")
 @app.route("/directory")
 @app.route("/directory/")
+@limiter.limit("5/second")
 def index():
 
     files = sorted(os.listdir(DIRECTORY))
@@ -44,6 +45,7 @@ def index():
 
     return render_template("index.html", items=items)
 
+@limiter.limit("5/second")
 @app.route("/directory/<path:path>")
 def directory(path):
     if ".." in path:
@@ -63,13 +65,17 @@ def directory(path):
 
     return render_template("directory.html", items=items, path="/"+path, up="/directory"+"/"+"/".join((path).split("/")[:len((path).split("/"))-1]))
 
-@limiter.limit("5/second")
+@limiter.limit("2/second")
 @app.route("/file/<path:path>")
 def file(path):
     if ".." in path:
         abort(400)
 
     return send_from_directory(DIRECTORY, path)
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory("static/img", "favicon.ico")
 
 if not DEBUG:
     @app.errorhandler(Exception)                                                                     

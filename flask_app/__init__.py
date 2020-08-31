@@ -34,7 +34,7 @@ class Item:
 @app.route("/directory")
 @app.route("/directory/")
 def redir():
-    return redirect(url_for("index"))
+    return redirect("/")
 
 @app.route("/")
 @limiter.limit("5/second")

@@ -31,11 +31,6 @@ class Item:
         else:
             self.size = humanize.naturalsize(size_num, gnu=True)
 
-@app.route("/directory")
-@app.route("/directory/")
-def redir():
-    return redirect("/")
-
 @app.route("/")
 @limiter.limit("5/second")
 def index():
@@ -70,7 +65,10 @@ def directory(path):
         else:
             items.append(Item(f, "/file/" + path + "/" + f, False, size_num=os.path.getsize(DIRECTORY + "/" + path + "/" + f))) 
 
-    return render_template("directory.html", items=items, path="/"+path, up="/directory"+"/"+"/".join((path).split("/")[:len((path).split("/"))-1]))
+    up = "/directory"+"/"+"/".join((path).split("/")[:len((path).split("/"))-1])
+    if up == "/directory/":
+        up = "/"
+    return render_template("directory.html", items=items, path="/"+path, up=up)
 
 @limiter.limit("2/second")
 @app.route("/file/<path:path>")
